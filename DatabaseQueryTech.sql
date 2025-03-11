@@ -54,3 +54,6 @@ SELECT * FROM [User];
 
 SELECT * FROM Product;
 GO
+
+-- Generar key aleatorio para JWT
+SELECT NEWID()
