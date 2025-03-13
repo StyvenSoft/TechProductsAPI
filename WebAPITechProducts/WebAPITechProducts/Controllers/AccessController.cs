@@ -20,8 +20,9 @@ namespace WebAPITechProducts.Controllers
             _utilities = utilities;
         }
 
+        // Endpoint de registro
         [HttpPost]
-        [Route("Signin")]
+        [Route("signin")]
         public async Task<IActionResult> Signin(UserDTO _object)
         {
             var modelUser = new User
@@ -41,6 +42,25 @@ namespace WebAPITechProducts.Controllers
             else
             {
                 return StatusCode(StatusCodes.Status200OK, new { isSuccess = false });
+            }
+        }
+
+        // Endpoint iniciar sesión
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(LoginDTO _object)
+        {
+            var userFound = await _dbtechProductsContext.Users
+                .Where(u => u.Email == _object.Email
+                    && u.Passwd == _utilities.EncryptSHA256(_object.Passwd))
+                .FirstOrDefaultAsync();
+            if (userFound == null)
+            {
+                return StatusCode(StatusCodes.Status200OK, new { isSuccess = false, token = "" });
+            }
+            else
+            {
+                return StatusCode(StatusCodes.Status200OK, new { isSuccess = true, token = _utilities.GenerateJWT(userFound) });
             }
         }
     }
