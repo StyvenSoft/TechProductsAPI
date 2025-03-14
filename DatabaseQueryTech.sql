@@ -20,15 +20,15 @@ GO
 -- Crear tabla de productos
 CREATE TABLE Product (
     ProductId INT PRIMARY KEY IDENTITY,
-    ProductName VARCHAR(50) NOT NULL,
+    Name VARCHAR(50) NOT NULL,
     Brand VARCHAR(50) NOT NULL,
     Price DECIMAL(10,2) NOT NULL,
     Stock INT DEFAULT 0,
-    CreationAt DATETIME DEFAULT GETDATE()
+    CreatedAt DATETIME DEFAULT GETDATE()
 );
 GO
 
-INSERT INTO Product (ProductName, Brand, Price, Stock, CreationAt) VALUES
+INSERT INTO Product (Name, Brand, Price, Stock) VALUES
 ('Gaming Laptop X1', 'Asus', 4200, 8),
 ('Mechanical Keyboard RGB', 'Corsair', 1500, 20),
 ('Wireless Gaming Mouse', 'Logitech', 800, 25),
